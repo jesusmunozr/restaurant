@@ -209,7 +209,6 @@ nav h1 a {
 .inside #footer {
   bottom: 0;
   position: absolute;
-  width: 50%;
 }
 #restaurant-name {
   color: #f18200;
@@ -262,20 +261,48 @@ nav h1 a {
 }
 #reviews-list li {
   background-color: #fff;
-    border: 2px solid #f3f3f3;
   display: block;
   list-style-type: none;
-  margin: 0 0 30px;
   overflow: hidden;
-  padding: 0 20px 20px;
   position: relative;
-  width: 85%;
+  width: 100%;
+  border-radius: 20px 0px;
+  margin-bottom: 20px;
 }
 #reviews-list li p {
-  margin: 0 0 10px;
+  padding: 0px 20px;
+  font-size: 1.1em;
 }
 #restaurant-hours td {
   color: #666;
+}
+.review-item__title {
+  background-color: rgb(51,51,51);
+  padding: 10px 20px;
+  border-radius: 20px 0px 0px;
+}
+.review-item__title-name {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #fff;
+}
+.review-item__title-date {
+  font-size: 1.1em;
+  font-weight: 300;
+  color: rgb(204, 204, 204);
+  float: right;
+}
+.review-item__rating {
+  padding: 15px 20px;
+}
+.review-item__rating span {
+  background-color: #f58500;
+  color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 /*=========================== Responsive =================================*/
 @media screen and (min-width: 768px) {
