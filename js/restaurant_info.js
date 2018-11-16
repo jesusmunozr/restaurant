@@ -89,6 +89,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = `Restaurant: ${restaurant.name}.`;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -114,7 +115,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     row.appendChild(day);
 
     const time = document.createElement('td');
-    time.innerHTML = operatingHours[key];
+    time.innerHTML = `<div>${operatingHours[key]}</div>`;
     row.appendChild(time);
 
     hours.appendChild(row);
@@ -128,6 +129,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
+  title.tabIndex = 7;
   container.appendChild(title);
 
   if (!reviews) {
@@ -137,8 +139,10 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     return;
   }
   const ul = document.getElementById('reviews-list');
+  let tabIndex = 8;
   reviews.forEach(review => {
-    ul.appendChild(createReviewHTML(review));
+    ul.appendChild(createReviewHTML(review, tabIndex));
+    tabIndex++;
   });
   container.appendChild(ul);
 }
@@ -146,14 +150,17 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 /**
  * Create review HTML and add it to the webpage.
  */
-createReviewHTML = (review) => {
+createReviewHTML = (review, tabIndex) => {
   const li = document.createElement('li');
+  li.tabIndex = tabIndex;
+  li.setAttribute('role', 'article');
   const title = document.createElement('div');
   title.classList.add('review-item__title');
+  li.setAttribute('role', 'heading');
   const name = document.createElement('span');
   name.classList.add('review-item__title-name');
   name.innerHTML = review.name;
-  const date = document.createElement('span');
+  const date = document.createElement('time');
   date.classList.add('review-item__title-date');
   date.innerHTML = review.date;
   title.appendChild(name);
@@ -163,7 +170,7 @@ createReviewHTML = (review) => {
   const rating = document.createElement('div');
   rating.classList.add('review-item__rating');
   const ratingContent = document.createElement('span');
-  ratingContent.innerHTML = `Rating: ${review.rating}`;
+  ratingContent.innerHTML = `Rating: ${review.rating} `;
   rating.appendChild(ratingContent);
   li.appendChild(rating);
 

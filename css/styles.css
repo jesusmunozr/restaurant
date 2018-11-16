@@ -76,7 +76,10 @@ nav h1 a {
     font-size: 17px;
     margin: 0;
 }
-
+.breadcrumb {
+  height: 51px;
+  text-align: left;
+}
 /* Display list items side by side */
 #breadcrumb li {
     display: inline;

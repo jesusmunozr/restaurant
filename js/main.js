@@ -146,8 +146,10 @@ resetRestaurants = (restaurants) => {
  */
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
+  let tabIndex = 4;
   restaurants.forEach(restaurant => {
-    ul.append(createRestaurantHTML(restaurant));
+    ul.append(createRestaurantHTML(restaurant, tabIndex));
+    tabIndex++;
   });
   addMarkersToMap();
 }
@@ -155,14 +157,20 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 /**
  * Create restaurant HTML.
  */
-createRestaurantHTML = (restaurant) => {
+createRestaurantHTML = (restaurant, tabIndex) => {
   const li = document.createElement('li');
+  li.addEventListener('keyup', (e) => {
+    if(e.key === 'Enter') {
+      window.location = DBHelper.urlForRestaurant(restaurant);
+    }
+  })
+  li.tabIndex = tabIndex;
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.srcset = DBHelper.imagesUrlsForRestaurant(restaurant);
-  // image.sizes = '(min-width: 768px) 275px, (min-width: 1024px) 275px, 643px';
+  image.alt = `Restaurant: ${restaurant.name}.`;
   li.append(image);
 
   const name = document.createElement('h1');
@@ -180,6 +188,8 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  more.tabIndex = tabIndex;
+  more.setAttribute('role', 'link');
   li.append(more)
 
   return li
