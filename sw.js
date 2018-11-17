@@ -40,6 +40,8 @@ self.addEventListener('fetch', function(event) {
                     return response;
                 }
                 return fetch(event.request);
+            }).catch(function() {
+                return new Response('Something was wrong!!');
             })
     );
 });
